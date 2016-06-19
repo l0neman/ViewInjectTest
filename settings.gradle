@@ -1,0 +1,1 @@
+include ':app', ':simpleviewinject-compiler', ':simpleviewinject-api', ':sample_simpleviewinject', ':simpleviewinject-annotation'
