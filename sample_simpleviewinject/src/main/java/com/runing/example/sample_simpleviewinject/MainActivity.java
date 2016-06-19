@@ -39,7 +39,7 @@ public final class MainActivity extends AppCompatActivity {
         mListView.setAdapter(new MyAdapter());
     }
 
-    static class MyAdapter extends BaseAdapter {
+    static final class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -70,9 +70,7 @@ public final class MainActivity extends AppCompatActivity {
             return convertView;
         }
 
-        static class ViewHolder {
-
-            private View itemView;
+        static final class ViewHolder {
 
             @ViewInject(R.id.tv_item)
             TextView textView;

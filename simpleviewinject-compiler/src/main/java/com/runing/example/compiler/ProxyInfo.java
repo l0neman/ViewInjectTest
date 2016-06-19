@@ -61,6 +61,11 @@ final class ProxyInfo {
         this.proxyClassName = targetClassName + "$$" + PROXY;
     }
 
+    /**
+     * 添加View信息
+     * @param id view id
+     * @param viewInfo view info
+     */
     void putViewInfo(int id, ViewInfo viewInfo) {
         idViewMap.put(id, viewInfo);
     }
@@ -101,11 +106,13 @@ final class ProxyInfo {
         /*生成类*/
         String className = proxyClassName;
         TypeSpec proxyClass = TypeSpec.classBuilder(className)
+                .addModifiers(Modifier.FINAL)
                 .addTypeVariable(TypeVariableName.get("T extends " + getTargetClassName()))
                 .addSuperinterface(ParameterizedTypeName.get(ABSTRACT_INJECTOR, T))
                 .addMethod(inject)
                 .build();
         JavaFile javaFile = JavaFile.builder(packageName, proxyClass).build();
+        /*生成类文件*/
         javaFile.writeTo(processingEnv.getFiler());
     }
 }

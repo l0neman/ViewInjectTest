@@ -31,7 +31,7 @@ public final class ViewInjectProcessor extends AbstractProcessor {
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        /*目标注解*/
+        /*需要处理的注解*/
         return Collections.singleton(ViewInject.class.getCanonicalName());
     }
 
@@ -63,10 +63,12 @@ public final class ViewInjectProcessor extends AbstractProcessor {
             String packageName;
             String className;
 
+            /*获取类型信息*/
             kClassName = typeElement.getQualifiedName().toString();
             packageName = packageElement.getQualifiedName().toString();
             className = getClassNameFromType(typeElement, packageName);
 
+            /*对应View信息*/
             int id = variableElement.getAnnotation(ViewInject.class).value();
             String fieldName = variableElement.getSimpleName().toString();
             String fieldType = variableElement.asType().toString();
@@ -84,7 +86,7 @@ public final class ViewInjectProcessor extends AbstractProcessor {
             }
             proxyInfo.putViewInfo(id, new ViewInfo(id, fieldName));
         }
-        //生成对应的注解器类
+        //生成对应的代理类
         for (Map.Entry<String, ProxyInfo> proxyInfoEntry : proxyInfoMap.entrySet()) {
             ProxyInfo info = proxyInfoEntry.getValue();
             try {

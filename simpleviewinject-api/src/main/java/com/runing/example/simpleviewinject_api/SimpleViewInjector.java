@@ -63,6 +63,7 @@ public final class SimpleViewInjector {
         AbstractInjector<Object> injector = INJECTORS.get(clazz);
         if (injector == null) {
             try {
+                /*生成代理类对象*/
                 Class<?> injectorClazz = Class.forName(clazz.getName()
                         + "$$Proxy");
                 injector = (AbstractInjector<Object>) injectorClazz.newInstance();
